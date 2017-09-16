@@ -3,7 +3,7 @@ node('php'){
         deleteDir()
         sh 'ls -la'
     }
-    
+    //sempre vai pegar na branch corrente. resolve o problema de nao ter que ficar editando o jenkinsfile e trocando a branch ou puxando da master.
     stage('Fetch') {
         checkout scm
     }
