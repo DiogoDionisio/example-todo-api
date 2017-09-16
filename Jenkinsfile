@@ -18,6 +18,17 @@ node('php'){
         sh 'docker build -t dmdionisio/todoapi:$BUILD_NUMBER .'
     }
     
+    stage('config') {
+        parallel(
+            'config cache': {
+                sh 'php artisan config:cache'
+            },
+            'config route': {
+                sh 'php artisan route:cache'
+            }
+        )
+    }
+    
     stage('Docker Ship') {
         sh 'docker push dmdionisio/todoapi:$BUILD_NUMBER'
     }
